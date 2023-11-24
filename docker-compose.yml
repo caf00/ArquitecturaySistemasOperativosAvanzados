@@ -1,0 +1,36 @@
+version: '3.9'
+
+services:
+  mysql_students:
+    container_name: mysql_students
+    image: mysql:8.0.33-debian
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=alejandro
+      - MYSQL_DATABASE=students_db
+    ports:
+      - '3306:3306'
+    volumes:
+      - ../mysql-students-data:/var/lib/mysql
+    networks:
+      - db_network
+
+  mysql_schools:
+    container_name: mysql_schools
+    image: mysql:8.0.33-debian
+    restart: unless-stopped
+    environment:
+      - MYSQL_ROOT_PASSWORD=alejandro
+      - MYSQL_DATABASE=schools_db
+    ports:
+      - '3307:3306'
+    volumes:
+      - ../mysql-schools-data:/var/lib/mysql
+    networks:
+      - db_network
+
+networks:
+  db_network:
+    driver: bridge
+  rabbitmq_network:
+    driver: bridge
